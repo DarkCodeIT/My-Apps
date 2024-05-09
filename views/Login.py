@@ -2,7 +2,7 @@ from flet import *
 
 from style.CustomField import InputField
 
-def login(page: Page):
+def Login(page: Page):
     # page.window_width = 420
     # page.window_height = 640
     page.window_resizable = False
@@ -100,7 +100,3 @@ def login(page: Page):
     page.add(
         body
     )
-
-
-if __name__ == "__main__":
-    app(target=login)

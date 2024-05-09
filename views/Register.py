@@ -28,6 +28,49 @@ def Register(page: Page):
                                     )
                                 ],
                                 alignment="center"
+                            ),
+
+                            InputField(
+                                width=350,
+                                height=50,
+                                hint_text="username",
+                                icon=icons.PERSON
+                            ),
+
+                            InputField(
+                                width=350,
+                                height=50,
+                                hint_text="email",
+                                icon=icons.MAIL
+                            ),
+
+                            InputField(
+                                width=350,
+                                height=50,
+                                hint_text="password",
+                                password=True,
+                                icon=icons.LOCK_CLOCK_ROUNDED
+                            ),
+
+                            Row(
+                                [
+                                    Checkbox(
+                                        value=False
+                                    ),
+
+                                    TextButton(
+                                        text="Do you accept the app's policy?",
+                                        style=ButtonStyle(
+                                            color={
+                                                MaterialState.DEFAULT : colors.WHITE,
+                                                MaterialState.HOVERED : colors.BLUE
+                                            },
+                                            shadow_color="transparent",
+                                            overlay_color="transparent"
+                                        )
+                                    )
+                                ],
+                                alignment=MainAxisAlignment.CENTER
                             )
                         ],
                         alignment="center",
@@ -51,7 +94,3 @@ def Register(page: Page):
     page.add(
         body
     )
-
-
-if __name__ == "__main__":
-    app(target=Register)
