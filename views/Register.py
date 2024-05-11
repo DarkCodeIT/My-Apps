@@ -83,7 +83,10 @@ def Register(page: Page):
     
     dialog_policy = AlertDialog(
         modal=True,
-        title=Text(value="App policy"),
+        title=Text(
+            value="App policy",
+            weight=FontWeight.W_500
+        ),
         content=Text(
             value="We can collect all your data.\nAnd sell it other people.\nAre you sure?"
         ),
