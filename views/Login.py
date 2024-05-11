@@ -5,10 +5,13 @@ from style.CustomField import InputField
 def Login(page: Page):
     # page.window_width = 420
     # page.window_height = 640
-    page.window_resizable = False
-    page.padding = 0
-    page.vertical_alignment = "center"
-    page.horizontal_alignment = "center"
+    # page.window_resizable = False
+    # page.padding = 0
+    # page.vertical_alignment = "center"
+    # page.horizontal_alignment = "center"
+
+    def go_register(e):
+        page.go(route="/register")
 
     body = Stack([
         Image(
@@ -22,6 +25,31 @@ def Login(page: Page):
                         size=30,
                         weight=FontWeight.W_500,
                         color= colors.WHITE70
+                    ),
+
+                    Row(
+                        [
+                            Text(
+                                value="Have not any account?",
+                                weight=FontWeight.W_600,
+                                size=17
+                            ),
+
+                            TextButton(
+                                text="Register",
+                                style=ButtonStyle(
+                                    color={
+                                        MaterialState.DEFAULT : colors.WHITE,
+                                        MaterialState.HOVERED : colors.BLUE
+                                    },
+                                    shadow_color="transparent",
+                                    overlay_color="transparent"
+                                ),
+                                scale=1.2,
+                                on_click=go_register
+                            )
+                        ],
+                        alignment="center"
                     ),
 
                     InputField(
@@ -97,6 +125,4 @@ def Login(page: Page):
         )
     ])
 
-    page.add(
-        body
-    )
+    return body

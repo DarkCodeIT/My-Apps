@@ -3,10 +3,63 @@ from flet import *
 from style.CustomField import InputField    
 
 def Register(page: Page):
-    page.padding = 0
-    page.vertical_alignment = "center"
-    page.horizontal_alignment = "center"
+    # page.padding = 0
+    # page.vertical_alignment = "center"
+    # page.horizontal_alignment = "center"
 
+    def validate(e):
+        if all()
+
+    def change_checkbox(e):
+        register_btn.disabled = not checkbox.value
+        page.update()
+
+    def go_register(e):
+        page.go(route="/login")
+    
+    #Elements with handler events
+    checkbox = Checkbox(
+        value=False,
+        on_change=change_checkbox
+    )
+
+    register_btn = ElevatedButton(
+        text="Register",
+        bgcolor="transparent",
+        style=ButtonStyle(
+            surface_tint_color={
+            MaterialState.DEFAULT : "transparent",
+            MaterialState.HOVERED : colors.CYAN_ACCENT_700
+            },
+            shadow_color="transparent"
+        ),
+        scale=1.2,
+        disabled=True
+    )
+
+    username_field = InputField(
+        width=350,
+        height=50,
+        hint_text="username",
+        icon=icons.PERSON
+        )
+    
+    email_field = InputField(
+        width=350,
+        height=50,
+        hint_text="email",
+        icon=icons.MAIL
+        )
+    
+    password_field = InputField(
+        width=350,
+        height=50,
+        hint_text="password",
+        password=True,
+        icon=icons.LOCK_CLOCK_ROUNDED
+        )
+
+    #View of register
     body = Stack(
         controls=[
             Image(
@@ -30,33 +83,39 @@ def Register(page: Page):
                                 alignment="center"
                             ),
 
-                            InputField(
-                                width=350,
-                                height=50,
-                                hint_text="username",
-                                icon=icons.PERSON
+                            Row(
+                                [
+                                    Text(
+                                        value='You have account?',
+                                        size=17,
+                                        weight=FontWeight.W_600
+                                    ),
+
+                                    TextButton(
+                                        text="Login",
+                                        style=ButtonStyle(
+                                            color={
+                                                MaterialState.DEFAULT : colors.WHITE,
+                                                MaterialState.HOVERED : colors.BLUE
+                                            },
+                                            shadow_color="transparent",
+                                            overlay_color="transparent"
+                                        ),
+                                        scale=1.2,
+                                        on_click=go_register
+                                    )
+                                ],
+                                alignment="center",
+                                spacing=5
                             ),
 
-                            InputField(
-                                width=350,
-                                height=50,
-                                hint_text="email",
-                                icon=icons.MAIL
-                            ),
-
-                            InputField(
-                                width=350,
-                                height=50,
-                                hint_text="password",
-                                password=True,
-                                icon=icons.LOCK_CLOCK_ROUNDED
-                            ),
+                            username_field,
+                            email_field,
+                            password_field,
 
                             Row(
                                 [
-                                    Checkbox(
-                                        value=False
-                                    ),
+                                    checkbox,
 
                                     TextButton(
                                         text="Do you accept the app's policy?",
@@ -71,10 +130,13 @@ def Register(page: Page):
                                     )
                                 ],
                                 alignment=MainAxisAlignment.CENTER
-                            )
+                            ),
+
+                            register_btn
                         ],
                         alignment="center",
-                        horizontal_alignment="center"
+                        horizontal_alignment="center",
+                        spacing=20
                     ),
                     width=400,
                     height=500,
@@ -91,6 +153,4 @@ def Register(page: Page):
         ]
     )
 
-    page.add(
-        body
-    )
+    return body
