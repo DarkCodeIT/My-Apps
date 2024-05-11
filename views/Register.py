@@ -8,19 +8,38 @@ def Register(page: Page):
     # page.horizontal_alignment = "center"
 
     def validate(e):
-        if all()
+        if all([username_field.field.value,
+               email_field.field.value,
+               password_field.field.value
+               ]) and checkbox.value:
+            register_btn.disabled = False
+            page.update()
 
-    def change_checkbox(e):
-        register_btn.disabled = not checkbox.value
+        else:
+            register_btn.disabled = True
+            page.update()
+
+    def go_login(e):
+        page.go(route="/login")
+
+    def open_dialog(e):
+        page.dialog = dialog_policy
+        dialog_policy.open = True
         page.update()
 
-    def go_register(e):
-        page.go(route="/login")
+    def close_dialog(e):
+        dialog_policy.open = False
+        page.update()
+    
+    def confirm_dialog(e):
+        dialog_policy.open = False
+        checkbox.value = True
+        page.update()
     
     #Elements with handler events
     checkbox = Checkbox(
         value=False,
-        on_change=change_checkbox
+        on_change=validate
     )
 
     register_btn = ElevatedButton(
@@ -41,14 +60,16 @@ def Register(page: Page):
         width=350,
         height=50,
         hint_text="username",
-        icon=icons.PERSON
+        icon=icons.PERSON,
+        on_change=validate
         )
     
     email_field = InputField(
         width=350,
         height=50,
         hint_text="email",
-        icon=icons.MAIL
+        icon=icons.MAIL,
+        on_change=validate
         )
     
     password_field = InputField(
@@ -56,8 +77,28 @@ def Register(page: Page):
         height=50,
         hint_text="password",
         password=True,
-        icon=icons.LOCK_CLOCK_ROUNDED
+        icon=icons.LOCK_CLOCK_ROUNDED,
+        on_change=validate
         )
+    
+    dialog_policy = AlertDialog(
+        modal=True,
+        title=Text(value="App policy"),
+        content=Text(
+            value="We can collect all your data.\nAnd sell it other people.\nAre you sure?"
+        ),
+        actions=[
+            TextButton(
+                text="Confirm",
+                on_click=confirm_dialog
+            ),
+            TextButton(
+                text="Cancel",
+                on_click=close_dialog
+            )
+        ],
+        actions_alignment=MainAxisAlignment.END
+    )
 
     #View of register
     body = Stack(
@@ -99,10 +140,11 @@ def Register(page: Page):
                                                 MaterialState.HOVERED : colors.BLUE
                                             },
                                             shadow_color="transparent",
-                                            overlay_color="transparent"
+                                            overlay_color="transparent",
+                                            padding=0
                                         ),
                                         scale=1.2,
-                                        on_click=go_register
+                                        on_click=go_login
                                     )
                                 ],
                                 alignment="center",
@@ -126,7 +168,8 @@ def Register(page: Page):
                                             },
                                             shadow_color="transparent",
                                             overlay_color="transparent"
-                                        )
+                                        ),
+                                        on_click=open_dialog
                                     )
                                 ],
                                 alignment=MainAxisAlignment.CENTER
