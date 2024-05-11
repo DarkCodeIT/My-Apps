@@ -1,11 +1,16 @@
 from flet import *
 
 
-def ResetPassword(page: Page):
+def ResetPassword(page: Page) -> Stack:
 
 	email = TextField(
 		hint_text="Enter your email",
-		
+		border=InputBorder.NONE,
+		bgcolor="transparent",
+		filled=False,
+		suffix_icon=icons.EMAIL,
+		width=350,
+		height=50
 	)
 
 	body = Stack(
@@ -31,13 +36,33 @@ def ResetPassword(page: Page):
 									),
 								],
 								alignment="center"
+							),
+
+							Container(
+								email,
+								border=border.all(2, colors.RED),
+								border_radius=20,
+								padding=5
+							),
+
+							Row(
+								[
+									IconButton(
+										icon=icons.NAVIGATE_NEXT_ROUNDED,
+										icon_size=30
+									)
+								],
+								alignment=MainAxisAlignment.END,
+								width=350
 							)
 						],
-						spacing=20
+						spacing=20,
+						horizontal_alignment="center",
+						alignment="center"
 					),
 					bgcolor="transparent",
 					width=400,
-					height=200,
+					height=250,
 					border_radius=35,
 					border=border.all(2, colors.RED_ACCENT_700),
 					blur=Blur(10, 10, BlurTileMode.MIRROR),
@@ -49,9 +74,4 @@ def ResetPassword(page: Page):
 		]
 	)
 
-	page.add(
-		body
-	)
-
-
-app(target=ResetPassword)
+	return body

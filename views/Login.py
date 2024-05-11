@@ -12,6 +12,9 @@ def Login(page: Page):
 
     def go_register(e):
         page.go(route="/register")
+    
+    def go_reset_password(e):
+        page.go(route="/login/reset_password")
 
     body = Stack([
         Image(
@@ -84,7 +87,8 @@ def Login(page: Page):
                                         MaterialState.DEFAULT : colors.WHITE,
                                         MaterialState.HOVERED : colors.BLUE
                                     }
-                                )
+                                ),
+                                on_click=go_reset_password
                             )
                         ],
                         alignment=MainAxisAlignment.SPACE_AROUND

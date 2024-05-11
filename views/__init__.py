@@ -1,1 +1,1 @@
-from . import Login, Register
+from . import Login, Register, Reset_Password

@@ -2,6 +2,7 @@ from flet import *
 
 from views.Register import Register
 from views.Login import Login
+from views.Reset_Password import ResetPassword
 
 def run_app(page: Page):
 	page.title = "App"
@@ -34,7 +35,18 @@ def run_app(page: Page):
 				)
 			)
 			page.update()
-	
+
+		if page.route == "/login/reset_password":
+			page.views.append(
+				View(
+					route="/login/reset_password",
+					controls=[
+						ResetPassword(page=page)
+					]
+				)
+			)
+			page.update()
+
 
 	page.on_route_change = change_route
 	page.go(route="/login")
