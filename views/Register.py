@@ -1,6 +1,7 @@
 from flet import *
 
-from style.CustomField import InputField    
+from style.CustomField import InputField
+from services.RegisterDB import register_user_db    
 
 def Register(page: Page):
     # page.padding = 0
@@ -35,6 +36,45 @@ def Register(page: Page):
         dialog_policy.open = False
         checkbox.value = True
         page.update()
+
+    def verify_email(e):
+        page.go("/verification/email")
+
+    def try_register(e):
+        result = register_user_db(
+            username=username_field.field.value,
+            email=email_field.field.value,
+            password=password_field.field.value
+        )
+
+        if result == "Error: Account already exists":
+            dialog = AlertDialog(
+                title=Text(
+                    value=result
+                ),
+                on_dismiss=None
+            )
+            page.dialog = dialog
+            dialog.open = True
+            page.update()
+
+        elif result == "Done":
+            dialog = AlertDialog(
+                modal=True,
+                title=Text(
+                    value="Account created"
+                ),
+                actions=[
+                    TextButton(
+                        text="Ok",
+                        on_click=verify_email
+                    )
+                ]
+            )
+            page.dialog = dialog
+            dialog.open = True
+            page.update()
+
     
     #Elements with handler events
     checkbox = Checkbox(
@@ -53,7 +93,8 @@ def Register(page: Page):
             shadow_color="transparent"
         ),
         scale=1.2,
-        disabled=True
+        disabled=True,
+        on_click=try_register
     )
 
     username_field = InputField(
