@@ -3,6 +3,7 @@ from flet import *
 from views.Register import Register
 from views.Login import Login
 from views.Reset_Password import ResetPassword
+from views.Verifycation import Verify_email
 
 def run_app(page: Page):
 	page.title = "App"
@@ -46,6 +47,17 @@ def run_app(page: Page):
 				)
 			)
 			page.update()
+
+			if page.route == "/verification/email":
+				page.views.append(
+					View(
+						route="/verification/email",
+						controls=[
+							Verify_email(page=page)
+						]
+					)
+				)
+				page.update()
 
 
 	page.on_route_change = change_route
