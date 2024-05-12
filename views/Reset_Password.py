@@ -49,7 +49,8 @@ def ResetPassword(page: Page) -> Stack:
 								[
 									IconButton(
 										icon=icons.NAVIGATE_NEXT_ROUNDED,
-										icon_size=30
+										icon_size=30,
+										hover_color=colors.RED
 									)
 								],
 								alignment=MainAxisAlignment.END,
@@ -70,6 +71,18 @@ def ResetPassword(page: Page) -> Stack:
 				),
 				alignment=alignment.center,
 				padding=150
+			),
+
+			Row(
+				[
+					IconButton(
+						icon=icons.NAVIGATE_BEFORE_ROUNDED,
+						icon_size=30,
+						padding=10,
+						hover_color=colors.RED
+					)
+				],
+				alignment=MainAxisAlignment.START
 			)
 		]
 	)
