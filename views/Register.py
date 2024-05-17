@@ -3,6 +3,7 @@ from flet import *
 from style.CustomField import InputField
 from services.RegisterDB import register_user_db    
 
+
 def Register(page: Page):
     # page.padding = 0
     # page.vertical_alignment = "center"
