@@ -100,3 +100,85 @@ def Verify_email(page: Page) -> Stack:
 		]
 	)
 	return body
+
+def Verify_email_code(page: Page) -> Stack:
+
+	next_btn = IconButton(
+		icon=icons.NAVIGATE_NEXT_ROUNDED
+	)
+
+	code_field = TextField(
+								hint_text="896758",
+								border=InputBorder.UNDERLINE,
+								width=150,
+								border_color=colors.BLACK,
+								border_width=2,
+								border_radius=2,
+								hint_style=TextStyle(
+									color=colors.WHITE
+								)
+							)
+
+	body = Stack(
+		[
+			Image(
+				src="assets/bg_verify_email.jpg"
+			),
+
+			Container(
+				Container(
+					Column(
+						[
+							Row(
+								[
+									Text(
+										value="We send code on your email.",
+										color=colors.ORANGE,
+									  style=TextStyle(
+											size=24,
+											weight=FontWeight.BOLD
+										)
+									)
+								],
+								alignment="center"
+							),
+
+							Row(
+								[
+									Text(
+										value="Please enter your code.",
+										color=colors.ORANGE,
+										style=TextStyle(
+											size=24,
+											weight=FontWeight.BOLD
+										)
+									)
+								],
+								alignment="center",
+							),
+							
+							code_field,
+
+							Row(
+								[
+									next_btn
+								]
+							)
+						],
+						alignment="center",
+						spacing=30,
+						horizontal_alignment="center"
+					),
+					width=400,
+					height=300,
+					bgcolor="transparent",
+					border_radius=35,
+					blur=Blur(10, 10, BlurTileMode.MIRROR)
+				),
+				alignment=alignment.center,
+				padding=150
+			)	
+		]
+	)
+
+	return body
