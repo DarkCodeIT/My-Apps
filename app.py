@@ -14,8 +14,21 @@ def run_app(page: Page):
 
 	def change_route(route) -> None:
 		page.views.clear()
+		print(page.route)
 
-		if page.route == "/login":
+		if page.route == "/verification/email":
+				print("here")
+				page.views.append(
+					View(
+						route="/verification/email",
+						controls=[
+							Verify_email(page=page)
+						]
+					)
+				)
+				page.update()
+
+		elif page.route == "/login":
 			page.views.append(
 				View(
 					route="/login",
@@ -26,7 +39,7 @@ def run_app(page: Page):
 			)
 			page.update()
 		
-		if page.route == "/register":
+		elif page.route == "/register":
 			page.views.append(
 				View(
 					route="/register",
@@ -37,7 +50,7 @@ def run_app(page: Page):
 			)
 			page.update()
 
-		if page.route == "/login/reset_password":
+		elif page.route == "/login/reset_password":
 			page.views.append(
 				View(
 					route="/login/reset_password",
@@ -47,17 +60,6 @@ def run_app(page: Page):
 				)
 			)
 			page.update()
-
-			if page.route == "/verification/email":
-				page.views.append(
-					View(
-						route="/verification/email",
-						controls=[
-							Verify_email(page=page)
-						]
-					)
-				)
-				page.update()
 
 
 	page.on_route_change = change_route

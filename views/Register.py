@@ -39,7 +39,9 @@ def Register(page: Page):
         page.update()
 
     def verify_email(e):
-        page.go("/verification/email")
+        dialog_acc_created.open = False
+        page.update()
+        page.go(route="/verification/email")
 
     def try_register(e):
         result = register_user_db(
@@ -49,31 +51,13 @@ def Register(page: Page):
         )
 
         if result == "Error: Account already exists":
-            dialog = AlertDialog(
-                title=Text(
-                    value=result
-                ),
-                on_dismiss=None
-            )
-            page.dialog = dialog
-            dialog.open = True
+            page.dialog = dialog_acc_exist
+            dialog_acc_exist.open = True
             page.update()
 
         elif result == "Done":
-            dialog = AlertDialog(
-                modal=True,
-                title=Text(
-                    value="Account created"
-                ),
-                actions=[
-                    TextButton(
-                        text="Ok",
-                        on_click=verify_email
-                    )
-                ]
-            )
-            page.dialog = dialog
-            dialog.open = True
+            page.dialog = dialog_acc_created
+            dialog_acc_created.open = True
             page.update()
 
     
@@ -144,6 +128,26 @@ def Register(page: Page):
         ],
         actions_alignment=MainAxisAlignment.END
     )
+
+    dialog_acc_exist = AlertDialog(
+                title=Text(
+                    value="Error: Account already exists"
+                ),
+                on_dismiss=None
+            )
+    
+    dialog_acc_created = AlertDialog(
+                modal=True,
+                title=Text(
+                    value="Account created"
+                ),
+                actions=[
+                    TextButton(
+                        text="Ok",
+                        on_click=verify_email
+                    )
+                ]
+            )
 
     #View of register
     body = Stack(
